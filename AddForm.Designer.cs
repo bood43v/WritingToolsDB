@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.label_manufacturer = new System.Windows.Forms.Label();
             this.label_name = new System.Windows.Forms.Label();
             this.label_inkColor = new System.Windows.Forms.Label();
@@ -48,113 +49,125 @@
             // label_manufacturer
             // 
             this.label_manufacturer.AutoSize = true;
-            this.label_manufacturer.Location = new System.Drawing.Point(4, 0);
-            this.label_manufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_manufacturer.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_manufacturer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_manufacturer.Location = new System.Drawing.Point(3, 0);
             this.label_manufacturer.Name = "label_manufacturer";
-            this.label_manufacturer.Size = new System.Drawing.Size(84, 16);
+            this.label_manufacturer.Size = new System.Drawing.Size(119, 22);
             this.label_manufacturer.TabIndex = 0;
             this.label_manufacturer.Text = "Manufacturer";
             // 
             // label_name
             // 
             this.label_name.AutoSize = true;
-            this.label_name.Location = new System.Drawing.Point(4, 60);
-            this.label_name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_name.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_name.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_name.Location = new System.Drawing.Point(3, 46);
             this.label_name.Name = "label_name";
-            this.label_name.Size = new System.Drawing.Size(82, 16);
+            this.label_name.Size = new System.Drawing.Size(111, 22);
             this.label_name.TabIndex = 1;
             this.label_name.Text = "Model name";
             // 
             // label_inkColor
             // 
             this.label_inkColor.AutoSize = true;
-            this.label_inkColor.Location = new System.Drawing.Point(4, 126);
-            this.label_inkColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_inkColor.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_inkColor.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_inkColor.Location = new System.Drawing.Point(3, 96);
             this.label_inkColor.Name = "label_inkColor";
-            this.label_inkColor.Size = new System.Drawing.Size(57, 16);
+            this.label_inkColor.Size = new System.Drawing.Size(79, 22);
             this.label_inkColor.TabIndex = 2;
             this.label_inkColor.Text = "Ink color";
             // 
             // label_diameter
             // 
             this.label_diameter.AutoSize = true;
-            this.label_diameter.Location = new System.Drawing.Point(4, 196);
-            this.label_diameter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_diameter.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_diameter.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_diameter.Location = new System.Drawing.Point(3, 147);
             this.label_diameter.Name = "label_diameter";
-            this.label_diameter.Size = new System.Drawing.Size(86, 16);
+            this.label_diameter.Size = new System.Drawing.Size(117, 22);
             this.label_diameter.TabIndex = 3;
             this.label_diameter.Text = "Ball diameter";
             // 
             // label_price
             // 
             this.label_price.AutoSize = true;
-            this.label_price.Location = new System.Drawing.Point(4, 321);
-            this.label_price.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_price.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_price.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_price.Location = new System.Drawing.Point(3, 249);
             this.label_price.Name = "label_price";
-            this.label_price.Size = new System.Drawing.Size(38, 16);
+            this.label_price.Size = new System.Drawing.Size(50, 22);
             this.label_price.TabIndex = 5;
             this.label_price.Text = "Price";
             // 
             // textBox_manufacturer
             // 
-            this.textBox_manufacturer.Location = new System.Drawing.Point(264, 3);
+            this.textBox_manufacturer.Location = new System.Drawing.Point(137, 2);
+            this.textBox_manufacturer.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_manufacturer.Name = "textBox_manufacturer";
-            this.textBox_manufacturer.Size = new System.Drawing.Size(94, 22);
+            this.textBox_manufacturer.Size = new System.Drawing.Size(131, 27);
             this.textBox_manufacturer.TabIndex = 6;
             // 
             // textBox_name
             // 
-            this.textBox_name.Location = new System.Drawing.Point(264, 63);
+            this.textBox_name.Location = new System.Drawing.Point(137, 48);
+            this.textBox_name.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(94, 22);
+            this.textBox_name.Size = new System.Drawing.Size(131, 27);
             this.textBox_name.TabIndex = 7;
             // 
             // textBox_color
             // 
-            this.textBox_color.Location = new System.Drawing.Point(264, 129);
+            this.textBox_color.Location = new System.Drawing.Point(137, 98);
+            this.textBox_color.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_color.Name = "textBox_color";
-            this.textBox_color.Size = new System.Drawing.Size(94, 22);
+            this.textBox_color.Size = new System.Drawing.Size(131, 27);
             this.textBox_color.TabIndex = 8;
             // 
             // textBox_diameter
             // 
-            this.textBox_diameter.Location = new System.Drawing.Point(264, 199);
+            this.textBox_diameter.Location = new System.Drawing.Point(137, 149);
+            this.textBox_diameter.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_diameter.Name = "textBox_diameter";
-            this.textBox_diameter.Size = new System.Drawing.Size(94, 22);
+            this.textBox_diameter.Size = new System.Drawing.Size(131, 27);
             this.textBox_diameter.TabIndex = 9;
             // 
             // label_quantity
             // 
             this.label_quantity.AutoSize = true;
-            this.label_quantity.Location = new System.Drawing.Point(4, 253);
-            this.label_quantity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_quantity.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_quantity.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_quantity.Location = new System.Drawing.Point(3, 197);
             this.label_quantity.Name = "label_quantity";
-            this.label_quantity.Size = new System.Drawing.Size(55, 16);
+            this.label_quantity.Size = new System.Drawing.Size(81, 22);
             this.label_quantity.TabIndex = 4;
             this.label_quantity.Text = "Quantity";
             // 
             // textBox_quantity
             // 
-            this.textBox_quantity.Location = new System.Drawing.Point(264, 256);
+            this.textBox_quantity.Location = new System.Drawing.Point(137, 199);
+            this.textBox_quantity.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_quantity.Name = "textBox_quantity";
-            this.textBox_quantity.Size = new System.Drawing.Size(94, 22);
+            this.textBox_quantity.Size = new System.Drawing.Size(131, 27);
             this.textBox_quantity.TabIndex = 10;
             // 
             // textBox_price
             // 
-            this.textBox_price.Location = new System.Drawing.Point(264, 324);
+            this.textBox_price.Location = new System.Drawing.Point(137, 251);
+            this.textBox_price.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_price.Name = "textBox_price";
-            this.textBox_price.Size = new System.Drawing.Size(94, 22);
+            this.textBox_price.Size = new System.Drawing.Size(131, 27);
             this.textBox_price.TabIndex = 11;
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.textBox_manufacturer, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_color, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label_manufacturer, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label_name, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label_quantity, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox_price, 1, 5);
@@ -164,23 +177,28 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox_diameter, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label_price, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox_name, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(105, 12);
+            this.tableLayoutPanel1.Controls.Add(this.label_manufacturer, 0, 0);
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("Inter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(57, 31);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(523, 367);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 292);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // button_addData
             // 
-            this.button_addData.Location = new System.Drawing.Point(321, 391);
+            this.button_addData.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_addData.Location = new System.Drawing.Point(121, 332);
+            this.button_addData.Margin = new System.Windows.Forms.Padding(2);
             this.button_addData.Name = "button_addData";
-            this.button_addData.Size = new System.Drawing.Size(91, 23);
+            this.button_addData.Size = new System.Drawing.Size(144, 41);
             this.button_addData.TabIndex = 13;
             this.button_addData.Text = "Добавить";
             this.button_addData.UseVisualStyleBackColor = true;
@@ -188,12 +206,15 @@
             // 
             // AddForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 426);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(394, 391);
             this.Controls.Add(this.button_addData);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(410, 430);
+            this.MinimumSize = new System.Drawing.Size(410, 430);
             this.Name = "AddForm";
             this.Text = "AddForm";
             this.tableLayoutPanel1.ResumeLayout(false);

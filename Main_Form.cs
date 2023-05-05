@@ -15,6 +15,8 @@ namespace WritingToolsDB
 
         string name_db = "Pencils";
 
+        string path = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\budae\Documents\WritingToolsDB\Pencils.mdf;Integrated Security=True";
+
         /// Для проверки вводится ли строка
         private bool newRowAdding = false;
 
@@ -91,7 +93,7 @@ namespace WritingToolsDB
             /// MSSQLLocalDB предотвращает конфликты имен с именованными экземплярами LocalDB
             /// AttachDbFilename - полный путь к подключаемой базе данных.
             //
-            string path = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\budae\Documents\WritingToolsDB\Pencils.mdf;Integrated Security=True";
+            
             /// подключение к бд
             MySql.connectDB(path);
 
@@ -115,46 +117,49 @@ namespace WritingToolsDB
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {       
             AddForm addform = new AddForm();
-            addform.Owner = this;
+
+            addform.path = path;
+            addform.name_db = name_db;
+            //addform.Owner = this;
             addform.ShowDialog();
+            ReloadData();
+            //newRowAdding = true;
 
-            newRowAdding = true;
+            ///// получение номера строки с вычетом 2, т.к. считаем с 1 и новая строка находится в k + 1
+            //int rowIndex = dataGridView.Rows.Count - 1;
 
-            /// получение номера строки с вычетом 2, т.к. считаем с 1 и новая строка находится в k + 1
-            int rowIndex = dataGridView.Rows.Count - 1;
+            //dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value = DataAddForm.manufacturer;
+            //dataGridView.Rows[rowIndex].Cells["ModelName"].Value = DataAddForm.model_name;
+            //dataGridView.Rows[rowIndex].Cells["InkColor"].Value = DataAddForm.ink_color;
+            //dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value = DataAddForm.ball_diameter;
+            //dataGridView.Rows[rowIndex].Cells["Quantity"].Value = DataAddForm.quantity;
+            //dataGridView.Rows[rowIndex].Cells["Price"].Value = DataAddForm.price;
 
-            dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value = DataAddForm.manufacturer;
-            dataGridView.Rows[rowIndex].Cells["ModelName"].Value = DataAddForm.model_name;
-            dataGridView.Rows[rowIndex].Cells["InkColor"].Value = DataAddForm.ink_color;
-            dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value = DataAddForm.ball_diameter;
-            dataGridView.Rows[rowIndex].Cells["Quantity"].Value = DataAddForm.quantity;
-            dataGridView.Rows[rowIndex].Cells["Price"].Value = DataAddForm.price;
+            ///// Представляет строку данных row в DataTable 
+            //DataRow row = MySql.dataset.Tables[name_db].NewRow();
 
-            /// Представляет строку данных row в DataTable 
-            DataRow row = MySql.dataset.Tables[name_db].NewRow();
-
-            /// заполнение строки бд данными из dataGridView
-            row["Manufacturer"] = dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value;
-            row["ModelName"] = dataGridView.Rows[rowIndex].Cells["ModelName"].Value;
-            row["InkColor"] = dataGridView.Rows[rowIndex].Cells["InkColor"].Value;
-            row["BallDiameter"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value);
-            row["Quantity"] = dataGridView.Rows[rowIndex].Cells["Quantity"].Value;
-            row["Price"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["Price"].Value);
+            ///// заполнение строки бд данными из dataGridView
+            //row["Manufacturer"] = dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value;
+            //row["ModelName"] = dataGridView.Rows[rowIndex].Cells["ModelName"].Value;
+            //row["InkColor"] = dataGridView.Rows[rowIndex].Cells["InkColor"].Value;
+            //row["BallDiameter"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value);
+            //row["Quantity"] = dataGridView.Rows[rowIndex].Cells["Quantity"].Value;
+            //row["Price"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["Price"].Value);
      
-            /// добавление строки в бд 
-            MySql.addRow(row, name_db);
+            ///// добавление строки в бд 
+            //MySql.addRow(row, name_db);
 
-            /// удаление дубликата
-            //dataGridView.Rows.RemoveAt(dataGridView.Rows.Count - 1);
+            ///// удаление дубликата
+            ////dataGridView.Rows.RemoveAt(dataGridView.Rows.Count - 1);
 
-            /// изменение операции 
-            dataGridView.Rows[rowIndex].Cells[7].Value = "Delete";
+            ///// изменение операции 
+            //dataGridView.Rows[rowIndex].Cells[7].Value = "Delete";
 
-            /// обновление dataset
-            MySql.updateDB(name_db);
+            ///// обновление dataset
+            //MySql.updateDB(name_db);
 
-            /// возврат в исходное состояние для следующей операции
-            newRowAdding = false;
+            ///// возврат в исходное состояние для следующей операции
+            //newRowAdding = false;
 
         }
 

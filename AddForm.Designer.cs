@@ -217,6 +217,7 @@
             this.MinimumSize = new System.Drawing.Size(410, 430);
             this.Name = "AddForm";
             this.Text = "AddForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddForm_FormClosed);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

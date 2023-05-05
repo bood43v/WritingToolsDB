@@ -85,6 +85,7 @@ namespace WritingToolsDB
         /// <param name="e"></param>
         private void Main_Form_Load(object sender, EventArgs e)
         {
+  
             /// строка подключения бд
             /// LocalDB — упрощенная версия ядра СУБД SQL Server Express
             /// MSSQLLocalDB предотвращает конфликты имен с именованными экземплярами LocalDB
@@ -112,11 +113,49 @@ namespace WritingToolsDB
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            
+        {       
             AddForm addform = new AddForm();
             addform.Owner = this;
             addform.ShowDialog();
+
+            newRowAdding = true;
+
+            /// получение номера строки с вычетом 2, т.к. считаем с 1 и новая строка находится в k + 1
+            int rowIndex = dataGridView.Rows.Count - 1;
+
+            dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value = DataAddForm.manufacturer;
+            dataGridView.Rows[rowIndex].Cells["ModelName"].Value = DataAddForm.model_name;
+            dataGridView.Rows[rowIndex].Cells["InkColor"].Value = DataAddForm.ink_color;
+            dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value = DataAddForm.ball_diameter;
+            dataGridView.Rows[rowIndex].Cells["Quantity"].Value = DataAddForm.quantity;
+            dataGridView.Rows[rowIndex].Cells["Price"].Value = DataAddForm.price;
+
+            /// Представляет строку данных row в DataTable 
+            DataRow row = MySql.dataset.Tables[name_db].NewRow();
+
+            /// заполнение строки бд данными из dataGridView
+            row["Manufacturer"] = dataGridView.Rows[rowIndex].Cells["Manufacturer"].Value;
+            row["ModelName"] = dataGridView.Rows[rowIndex].Cells["ModelName"].Value;
+            row["InkColor"] = dataGridView.Rows[rowIndex].Cells["InkColor"].Value;
+            row["BallDiameter"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["BallDiameter"].Value);
+            row["Quantity"] = dataGridView.Rows[rowIndex].Cells["Quantity"].Value;
+            row["Price"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[rowIndex].Cells["Price"].Value);
+     
+            /// добавление строки в бд 
+            MySql.addRow(row, name_db);
+
+            /// удаление дубликата
+            //dataGridView.Rows.RemoveAt(dataGridView.Rows.Count - 1);
+
+            /// изменение операции 
+            dataGridView.Rows[rowIndex].Cells[7].Value = "Delete";
+
+            /// обновление dataset
+            MySql.updateDB(name_db);
+
+            /// возврат в исходное состояние для следующей операции
+            newRowAdding = false;
+
         }
 
         /// <summary>
@@ -178,7 +217,7 @@ namespace WritingToolsDB
                         dataGridView.Rows[e.RowIndex].Cells[7].Value = "Delete";
 
                         /// обновление dataset
-                        MySql.updateDB("Pencils");
+                        MySql.updateDB(name_db);
 
                         /// возврат в исходное состояние для следующей операции
                         newRowAdding = false;
@@ -219,31 +258,31 @@ namespace WritingToolsDB
         /// <param name="e"></param>
         private void dataGridView_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            try
-            {
-                /// если одновременно не добавляются две
-                if (newRowAdding == false)
-                {
+            //try
+            //{
+            //    /// если одновременно не добавляются две
+            //    if (newRowAdding == false)
+            //    {
                     
-                    newRowAdding = true;
-                    /// номер последней строки
-                    int lastRow = dataGridView.Rows.Count - 2;
+            //        newRowAdding = true;
+            //        ///// номер последней строки
+            //        //int lastRow = dataGridView.Rows.Count - 2;
 
-                    /// представляет строку в элементе управления DataGridView
-                    DataGridViewRow row = dataGridView.Rows[lastRow];
+            //        ///// представляет строку в элементе управления DataGridView
+            //        //DataGridViewRow row = dataGridView.Rows[lastRow];
 
-                    /// изменение операции и её выделение
-                    DataGridViewLinkCell linkCell = new DataGridViewLinkCell();
-                    dataGridView[7, lastRow] = linkCell;
-                    row.Cells["Operation"].Value = "Insert";
-                    //newRowAdding = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabel1.Text = "Ошибка. " + ex.Message;
-                //MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //        ///// изменение операции и её выделение
+            //        //DataGridViewLinkCell linkCell = new DataGridViewLinkCell();
+            //        //dataGridView[7, lastRow] = linkCell;
+            //        //row.Cells["Operation"].Value = "Insert";
+            //        ////newRowAdding = false;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    toolStripStatusLabel1.Text = "Ошибка. " + ex.Message;
+            //    //MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         /// <summary>

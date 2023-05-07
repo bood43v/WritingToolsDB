@@ -247,6 +247,7 @@
             this.Name = "AddForm";
             this.Text = "Добавить ручку";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddForm_FormClosed);
+            this.Load += new System.EventHandler(this.AddForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).EndInit();

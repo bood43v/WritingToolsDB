@@ -21,13 +21,6 @@ namespace WritingToolsDB
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterParent;
-           // toolStripStatusLabel1.Text = "";
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
-            numericUpDown_quantity.Text = "";
-            numericUpDown_diameter.Text = "";
-            numericUpDown_price.Text = "";
-
         }
 
         private void button_addData_Click(object sender, EventArgs e)
@@ -64,6 +57,8 @@ namespace WritingToolsDB
                 numericUpDown_diameter.Text = "";
                 numericUpDown_quantity.Text = "";
                 numericUpDown_price.Text = "";
+
+
                 //toolStripStatusLabel1.Text = "";
             }
         }
@@ -136,6 +131,17 @@ namespace WritingToolsDB
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown_diameter.Text = numericUpDown_diameter.Text.Replace(',', '.');
+        }
+
+        private void AddForm_Load(object sender, EventArgs e)
+        {
+
+            // toolStripStatusLabel1.Text = "";
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
+            numericUpDown_quantity.Text = "";
+            numericUpDown_diameter.Text = "";
+            numericUpDown_price.Text = "";
         }
     }
 }

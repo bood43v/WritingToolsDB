@@ -121,10 +121,8 @@ namespace WritingToolsDB
 
             addform.path = path;
             addform.name_db = name_db;
-            //addform.Owner = this;
             addform.ShowDialog();
             ReloadData();
-            //newRowAdding = true;
             dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
         }
 
@@ -265,6 +263,14 @@ namespace WritingToolsDB
             }
         }
 
-
+        private void toolStripButtonUpdate_Click(object sender, EventArgs e)
+        {
+            UpdateForm updateForm = new UpdateForm();
+            updateForm.path = path;
+            updateForm.name_db = name_db;
+            updateForm.ShowDialog();
+            ReloadData();
+            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+        }
     }
 }

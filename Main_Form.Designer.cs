@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonUpdate = new System.Windows.Forms.ToolStripButton();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -43,7 +44,8 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonAdd});
+            this.toolStripButtonAdd,
+            this.toolStripButtonUpdate});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(844, 25);
@@ -59,6 +61,16 @@
             this.toolStripButtonAdd.Size = new System.Drawing.Size(63, 22);
             this.toolStripButtonAdd.Text = "Добавить";
             this.toolStripButtonAdd.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
+            // 
+            // toolStripButtonUpdate
+            // 
+            this.toolStripButtonUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonUpdate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUpdate.Image")));
+            this.toolStripButtonUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonUpdate.Name = "toolStripButtonUpdate";
+            this.toolStripButtonUpdate.Size = new System.Drawing.Size(65, 22);
+            this.toolStripButtonUpdate.Text = "Изменить";
+            this.toolStripButtonUpdate.Click += new System.EventHandler(this.toolStripButtonUpdate_Click);
             // 
             // dataGridView
             // 
@@ -129,6 +141,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonUpdate;
     }
 }
 

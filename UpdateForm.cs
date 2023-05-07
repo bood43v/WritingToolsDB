@@ -120,7 +120,7 @@ namespace WritingToolsDB
         {
             MySql.connectDB(path);
 
-            SqlCommand command = new SqlCommand($"SELECT * FROM Pencils WHERE id =  ('{numericUpDown_id.Value}')", MySql.sqlConnection);
+            SqlCommand command = new SqlCommand($"SELECT * FROM " + name_db + $" WHERE id =  ('{numericUpDown_id.Value}')", MySql.sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -162,7 +162,7 @@ namespace WritingToolsDB
 
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
-                string updateQuery = $"UPDATE Pencils SET Manufacturer = '{manufacturer}', ModelName = '{model_name}', InkColor = '{ink_color}', BallDiameter = '{ball_diameter}'," +
+                string updateQuery = $"UPDATE " + name_db + $" SET Manufacturer = '{manufacturer}', ModelName = '{model_name}', InkColor = '{ink_color}', BallDiameter = '{ball_diameter}'," +
                     $"quantity = '{quantity}',price = '{price}' WHERE id = '{id}'";
 
                 SqlCommand updateCommand = new SqlCommand(updateQuery, MySql.sqlConnection);

@@ -41,7 +41,7 @@ namespace WritingToolsDB
 
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
-                string AddQuery = $"insert into Pencils (manufacturer, modelname, inkcolor, balldiameter, quantity, price) values ('{manufacturer}', '{model_name}','{ink_color}','{ball_diameter   }','{quantity}','{price}')";
+                string AddQuery = $"insert into " + name_db + $" (manufacturer, modelname, inkcolor, balldiameter, quantity, price) values ('{manufacturer}', '{model_name}','{ink_color}','{ball_diameter   }','{quantity}','{price}')";
 
                 var sqlDataAdapter = new SqlDataAdapter(AddQuery, MySql.sqlConnection);
 

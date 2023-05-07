@@ -37,13 +37,16 @@
             this.textBox_manufacturer = new System.Windows.Forms.TextBox();
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.textBox_color = new System.Windows.Forms.TextBox();
-            this.textBox_diameter = new System.Windows.Forms.TextBox();
             this.label_quantity = new System.Windows.Forms.Label();
-            this.textBox_quantity = new System.Windows.Forms.TextBox();
-            this.textBox_price = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button_addData = new System.Windows.Forms.Button();
+            this.numericUpDown_diameter = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_price = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_quantity = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_quantity)).BeginInit();
             this.SuspendLayout();
             // 
             // label_manufacturer
@@ -125,14 +128,6 @@
             this.textBox_color.Size = new System.Drawing.Size(131, 27);
             this.textBox_color.TabIndex = 8;
             // 
-            // textBox_diameter
-            // 
-            this.textBox_diameter.Location = new System.Drawing.Point(137, 149);
-            this.textBox_diameter.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_diameter.Name = "textBox_diameter";
-            this.textBox_diameter.Size = new System.Drawing.Size(131, 27);
-            this.textBox_diameter.TabIndex = 9;
-            // 
             // label_quantity
             // 
             this.label_quantity.AutoSize = true;
@@ -144,37 +139,21 @@
             this.label_quantity.TabIndex = 4;
             this.label_quantity.Text = "Quantity";
             // 
-            // textBox_quantity
-            // 
-            this.textBox_quantity.Location = new System.Drawing.Point(137, 199);
-            this.textBox_quantity.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_quantity.Name = "textBox_quantity";
-            this.textBox_quantity.Size = new System.Drawing.Size(131, 27);
-            this.textBox_quantity.TabIndex = 10;
-            // 
-            // textBox_price
-            // 
-            this.textBox_price.Location = new System.Drawing.Point(137, 251);
-            this.textBox_price.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox_price.Name = "textBox_price";
-            this.textBox_price.Size = new System.Drawing.Size(131, 27);
-            this.textBox_price.TabIndex = 11;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown_quantity, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown_price, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown_diameter, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.textBox_manufacturer, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_color, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label_name, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label_quantity, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_price, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.label_inkColor, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_quantity, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label_diameter, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_diameter, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label_price, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBox_name, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label_manufacturer, 0, 0);
@@ -189,6 +168,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 292);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
@@ -204,6 +184,55 @@
             this.button_addData.UseVisualStyleBackColor = true;
             this.button_addData.Click += new System.EventHandler(this.button_addData_Click);
             // 
+            // numericUpDown_diameter
+            // 
+            this.numericUpDown_diameter.DecimalPlaces = 2;
+            this.numericUpDown_diameter.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDown_diameter.Location = new System.Drawing.Point(138, 150);
+            this.numericUpDown_diameter.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown_diameter.Name = "numericUpDown_diameter";
+            this.numericUpDown_diameter.Size = new System.Drawing.Size(129, 27);
+            this.numericUpDown_diameter.TabIndex = 15;
+            this.numericUpDown_diameter.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // numericUpDown_price
+            // 
+            this.numericUpDown_price.DecimalPlaces = 2;
+            this.numericUpDown_price.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDown_price.Location = new System.Drawing.Point(138, 252);
+            this.numericUpDown_price.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_price.Name = "numericUpDown_price";
+            this.numericUpDown_price.Size = new System.Drawing.Size(129, 27);
+            this.numericUpDown_price.TabIndex = 16;
+            // 
+            // numericUpDown_quantity
+            // 
+            this.numericUpDown_quantity.Location = new System.Drawing.Point(138, 200);
+            this.numericUpDown_quantity.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown_quantity.Name = "numericUpDown_quantity";
+            this.numericUpDown_quantity.Size = new System.Drawing.Size(129, 27);
+            this.numericUpDown_quantity.TabIndex = 17;
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,10 +245,13 @@
             this.MaximumSize = new System.Drawing.Size(410, 430);
             this.MinimumSize = new System.Drawing.Size(410, 430);
             this.Name = "AddForm";
-            this.Text = "AddForm";
+            this.Text = "Добавить ручку";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddForm_FormClosed);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_quantity)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -234,11 +266,11 @@
         private System.Windows.Forms.TextBox textBox_manufacturer;
         private System.Windows.Forms.TextBox textBox_name;
         private System.Windows.Forms.TextBox textBox_color;
-        private System.Windows.Forms.TextBox textBox_diameter;
         private System.Windows.Forms.Label label_quantity;
-        private System.Windows.Forms.TextBox textBox_quantity;
-        private System.Windows.Forms.TextBox textBox_price;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button_addData;
+        private System.Windows.Forms.NumericUpDown numericUpDown_diameter;
+        private System.Windows.Forms.NumericUpDown numericUpDown_price;
+        private System.Windows.Forms.NumericUpDown numericUpDown_quantity;
     }
 }

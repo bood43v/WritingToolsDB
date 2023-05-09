@@ -14,7 +14,7 @@ namespace WritingToolsDB
         /// путь
         public string path;
         /// имя бд
-        public string name_db; 
+        public string name_table; 
         public AddForm()
         {
             InitializeComponent();
@@ -71,10 +71,10 @@ namespace WritingToolsDB
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
                 /// формируем команду вставки
-                string AddQuery = $"insert into " + name_db + $" (manufacturer, modelname, inkcolor, balldiameter, quantity, price) values ('{manufacturer}', '{model_name}','{ink_color}','{ball_diameter   }','{quantity}','{price}')";
+                string AddQuery = $"insert into " + name_table + $" (manufacturer, modelname, inkcolor, balldiameter, quantity, price) values ('{manufacturer}', '{model_name}','{ink_color}','{ball_diameter   }','{quantity}','{price}')";
 
                 /// вызов метода вставки в бд
-                MySql.insertDB(name_db, AddQuery);
+                MySql.insertDB(name_table, AddQuery);
 
                 /// обнуляем поля для ввода следующий значений
                 textBox_manufacturer.Text = "";

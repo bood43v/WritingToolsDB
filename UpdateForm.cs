@@ -15,7 +15,7 @@ namespace WritingToolsDB
         /// путь
         public string path;
         /// имя бд
-        public string name_db;
+        public string name_table;
         /// id изменяемого элемента
         public int id;
         public UpdateForm()
@@ -155,7 +155,7 @@ namespace WritingToolsDB
             /// подключение к бд
             MySql.connectDB(path);
             /// формируем команду select и выполняем
-            string SelectQuery = $"SELECT * FROM " + name_db + $" WHERE id =  ('{numericUpDown_id.Value}')";     
+            string SelectQuery = $"SELECT * FROM " + name_table + $" WHERE id =  ('{numericUpDown_id.Value}')";     
             SqlCommand command = new SqlCommand(SelectQuery, MySql.sqlConnection);
             /// выполнение команды
             SqlDataReader reader = command.ExecuteReader();
@@ -214,7 +214,7 @@ namespace WritingToolsDB
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
                 /// формируем команду изменения
-                string updateQuery = $"UPDATE " + name_db + $" SET Manufacturer = '{manufacturer}', ModelName = '{model_name}', InkColor = '{ink_color}', BallDiameter = '{ball_diameter}'," +
+                string updateQuery = $"UPDATE " + name_table + $" SET Manufacturer = '{manufacturer}', ModelName = '{model_name}', InkColor = '{ink_color}', BallDiameter = '{ball_diameter}'," +
                     $"quantity = '{quantity}',price = '{price}' WHERE id = '{id}'";
 
                 MySql.updateRowDB(updateQuery);

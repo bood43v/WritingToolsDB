@@ -1,11 +1,12 @@
-﻿/// Файл с обработчиками событий для работы с бд SqlClient
+﻿/// Файл с обработчиками событий для работы с бд 
 /// Автор: Будаев Г.Б.
-/// 
+
 using System;
 using System.Data;
+using System.IO;
+using System.Data.SqlClient; /// для Sql команд
 using System.Windows.Forms;
-using System.Drawing;
-using System.Data.SqlClient;
+
 
 namespace WritingToolsDB
 {
@@ -14,9 +15,23 @@ namespace WritingToolsDB
         /// Создание объекта SqlData
         SqlData MySql = new SqlData();
 
-        string name_db = "Pencils";
+        bool DB_loaded = false;
+        /// имя бд
+        string name_db;
+        /// имя таблицы для работы (всегда одинаковое)
+        string name_table = "Pencils";
 
-        string path = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\budae\Documents\WritingToolsDB\Pencils.mdf;Integrated Security=True";
+        string templHead = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=";
+        string templTale = @";Integrated Security=True";
+        /// <summary>
+        /// текущее расположение выбранной бд при открытии
+        /// </summary>
+        string currPath;
+
+        /// <summary>
+        /// расположение для работы с бд
+        /// </summary>
+        string path;
 
         /// Для проверки вводится ли строка
         private bool newRowAdding = false;
@@ -45,6 +60,20 @@ namespace WritingToolsDB
             //
 
             /// подключение к бд
+
+        }
+
+
+        private void Main_Form_loadDB()
+        {
+
+            /// строка подключения бд
+            /// LocalDB — упрощенная версия ядра СУБД SQL Server Express
+            /// MSSQLLocalDB предотвращает конфликты имен с именованными экземплярами LocalDB
+            /// AttachDbFilename - полный путь к подключаемой базе данных.
+            //
+            path = templHead + currPath + templTale;
+            /// подключение к бд
             MySql.connectDB(path);
             /// загрузка данных
             LoadData();
@@ -58,6 +87,7 @@ namespace WritingToolsDB
             dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
         }
 
+
         /// <summary>
         /// начальная загрузка данных в таблицу
         /// </summary>
@@ -66,9 +96,9 @@ namespace WritingToolsDB
             try
             {
                 /// загрузка данных в dataset
-                MySql.loadDB(name_db);
+                MySql.loadDB(name_table);
                 /// вывод данных из dataset в dataGridView
-                dataGridView.DataSource = MySql.dataset.Tables[name_db];
+                dataGridView.DataSource = MySql.dataset.Tables[name_table];
 
                 /// выделение команд с столбце операций
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
@@ -92,9 +122,9 @@ namespace WritingToolsDB
             try
             {
                 /// обновление данных из бд
-                MySql.reloadDB(name_db);
+                MySql.reloadDB(name_table);
                 /// вывод данных из dataset в dataGridView
-                dataGridView.DataSource = MySql.dataset.Tables[name_db];
+                dataGridView.DataSource = MySql.dataset.Tables[name_table];
                 /// выделение команд с столбце операций
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
                 {
@@ -117,13 +147,17 @@ namespace WritingToolsDB
         /// <param name="e"></param>
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
-            AddForm addform = new AddForm();
+            if(DB_loaded == true)
+            {
+                AddForm addform = new AddForm();
 
-            addform.path = path;
-            addform.name_db = name_db;
-            addform.ShowDialog();
-            ReloadData();
-            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+                addform.path = path;
+                addform.name_table = name_table;
+                addform.ShowDialog();
+                ReloadData();
+                dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+            }
+
         }
 
         /// <summary>
@@ -155,31 +189,31 @@ namespace WritingToolsDB
                             dataGridView.Rows.RemoveAt(rowIndex);
 
                             /// удаление строки из бд
-                            MySql.deleteRow(rowIndex, name_db);
+                            MySql.deleteRow(rowIndex, name_table);
 
                             /// обновление dataset
-                            MySql.updateDB(name_db);
+                            MySql.updateDB(name_table);
                         }
                     }
                     /// изменение
-                    else if (task == "Update")
-                    {
-                        /// номер строки
-                        int r = e.RowIndex;
-                        /// заполнение строки бд данными из dataGridView
-                        MySql.dataset.Tables[name_db].Rows[r]["Manufacturer"] = dataGridView.Rows[r].Cells["Manufacturer"].Value;
-                        MySql.dataset.Tables[name_db].Rows[r]["ModelName"] = dataGridView.Rows[r].Cells["ModelName"].Value;
-                        MySql.dataset.Tables[name_db].Rows[r]["InkColor"] = dataGridView.Rows[r].Cells["InkColor"].Value;
-                        MySql.dataset.Tables[name_db].Rows[r]["BallDiameter"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[r].Cells["BallDiameter"].Value);
-                        MySql.dataset.Tables[name_db].Rows[r]["Quantity"] = dataGridView.Rows[r].Cells["Quantity"].Value;
-                        MySql.dataset.Tables[name_db].Rows[r]["Price"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[r].Cells["Price"].Value);
+                    //else if (task == "Update")
+                    //{
+                    //    /// номер строки
+                    //    int r = e.RowIndex;
+                    //    /// заполнение строки бд данными из dataGridView
+                    //    MySql.dataset.Tables[name_db].Rows[r]["Manufacturer"] = dataGridView.Rows[r].Cells["Manufacturer"].Value;
+                    //    MySql.dataset.Tables[name_db].Rows[r]["ModelName"] = dataGridView.Rows[r].Cells["ModelName"].Value;
+                    //    MySql.dataset.Tables[name_db].Rows[r]["InkColor"] = dataGridView.Rows[r].Cells["InkColor"].Value;
+                    //    MySql.dataset.Tables[name_db].Rows[r]["BallDiameter"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[r].Cells["BallDiameter"].Value);
+                    //    MySql.dataset.Tables[name_db].Rows[r]["Quantity"] = dataGridView.Rows[r].Cells["Quantity"].Value;
+                    //    MySql.dataset.Tables[name_db].Rows[r]["Price"] = /*(double)Convert.ToDouble*/(dataGridView.Rows[r].Cells["Price"].Value);
 
-                        /// Обновление dataset
-                        MySql.updateDB(name_db);
-                        /// возврат в исходное состояние для следующей операции
-                        dataGridView.Rows[e.RowIndex].Cells[7].Value = "Delete";
-                        //newRowAdding = false;
-                    }
+                    //    /// Обновление dataset
+                    //    MySql.updateDB(name_db);
+                    //    /// возврат в исходное состояние для следующей операции
+                    //    dataGridView.Rows[e.RowIndex].Cells[7].Value = "Delete";
+                    //    //newRowAdding = false;
+                    //}
                 }
                 ReloadData();
                 dataGridView.FirstDisplayedScrollingRowIndex = k;
@@ -197,33 +231,33 @@ namespace WritingToolsDB
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                /// если не добавляется строка
-                if (newRowAdding == false)
-                {
+        //private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    try
+        //    {
+        //        /// если не добавляется строка
+        //        if (newRowAdding == false)
+        //        {
 
-                    //newRowAdding = true;
-                    /// номер измененной строки
-                    int rowIndex = dataGridView.SelectedCells[0].RowIndex;
-                    /// представляет строку в элементе управления DataGridView
-                    DataGridViewRow editingRow = dataGridView.Rows[rowIndex];
+        //            //newRowAdding = true;
+        //            /// номер измененной строки
+        //            int rowIndex = dataGridView.SelectedCells[0].RowIndex;
+        //            /// представляет строку в элементе управления DataGridView
+        //            DataGridViewRow editingRow = dataGridView.Rows[rowIndex];
 
-                    /// изменение операции и её выделение
-                    DataGridViewLinkCell linkCell = new DataGridViewLinkCell();
-                    dataGridView[7, rowIndex] = linkCell;
-                    dataGridView.Rows[rowIndex].Cells[1].Selected = true;
-                    editingRow.Cells["Operation"].Value = "Update";
-                }
-            }
-            catch (Exception ex)
-            {
-                toolStripStatusLabel1.Text = "Ошибка. " + ex.Message;
-                //MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //            /// изменение операции и её выделение
+        //            DataGridViewLinkCell linkCell = new DataGridViewLinkCell();
+        //            dataGridView[7, rowIndex] = linkCell;
+        //            dataGridView.Rows[rowIndex].Cells[1].Selected = true;
+        //            editingRow.Cells["Operation"].Value = "Update";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        toolStripStatusLabel1.Text = "Ошибка. " + ex.Message;
+        //        //MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         /// <summary>
         /// действия при сортировке - сохранение выделения
@@ -239,45 +273,40 @@ namespace WritingToolsDB
             }
         }
 
-        private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            // you can obtain current editing value like this:
-            string value = null;
-            var ctl = dataGridView.EditingControl as DataGridViewTextBoxEditingControl;
-
-            if (ctl != null)
-                value = ctl.Text;
-
-            // you can obtain the current commited value
-            object current = dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            string message;
-            switch (e.ColumnIndex)
-            {
-                case 0:
-                    // bound to integer field
-                    message = "the value should be a number";
-                    break;
-                default:
-                    message = "Invalid data";
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// изменение
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonUpdate_Click(object sender, EventArgs e)
         {
-            UpdateForm updateForm = new UpdateForm();
-            updateForm.path = path;
-            updateForm.name_db = name_db;
-            updateForm.ShowDialog();
-            ReloadData();
-            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+            if (DB_loaded)
+            {
+                UpdateForm updateForm = new UpdateForm();
+                updateForm.path = path;
+                updateForm.name_table = name_table;
+                updateForm.ShowDialog();
+                ReloadData();
+                dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+            }
+
         }
 
+        /// <summary>
+        /// сброс поиска
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_clearSearch_Click(object sender, EventArgs e)
         {
             ReloadData();
         }
 
+        /// <summary>
+        /// поиск
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox_search_TextChanged(object sender, EventArgs e)
         {
             //(dataGridView.DataSource as DataTable).DefaultView.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
@@ -286,6 +315,49 @@ namespace WritingToolsDB
             dv.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
             dataGridView.DataSource = dv;
             ReloadData();
+
+        }
+
+        /// <summary>
+        /// открыть бд
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /// если не был выбран файл -> выход
+            openFileDialog1.Filter = "Mdf files(*.mdf)|*.mdf|All files(*.*)|*.*";
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            /// ext хранит расширение вырбанного файла
+            string ext = Path.GetExtension(openFileDialog1.FileName);
+            /// если выбран mdf
+            if (ext == ".mdf")
+            {
+                // отключение, если бд была загружена, для следующего запуска
+                if (DB_loaded == true)
+                {
+                    //SqlConnection.ClearPool(MySql.sqlConnection);
+                    
+                    MySql.sqlConnection.Close();
+                }
+                /// имя файла
+                name_db = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
+                
+                /// полный путь к файлу
+                currPath = openFileDialog1.FileName;
+                /// загрузка бд
+                Main_Form_loadDB();
+                DB_loaded = true;
+            }
+            /// если выбрана не бд
+            else MessageBox.Show("Неверный формат базы данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        }
+
+        private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }

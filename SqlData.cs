@@ -109,5 +109,38 @@ namespace WritingToolsDB
         {
             sqlDataAdapter.Update(dataset, nameDB);
         }
+
+        /// <summary>
+        /// вставка строки в бд
+        /// </summary>
+        /// <param name="nameDB"></param>
+        /// <param name="Query"></param>
+        public void insertDB(string nameDB, string Query)
+        {
+            var sqlDataAdapter = new SqlDataAdapter(Query, sqlConnection);
+
+            /// для следующего заполнения данными
+            var dataset = new DataSet();
+
+            /// заполнение dataset данными из бд nameDB
+            sqlDataAdapter.Fill(dataset, nameDB);
+        }
+
+        //public void idSearchDB(string Query)
+        //{
+        //    SqlCommand command = new SqlCommand(Query, sqlConnection);
+        //    SqlDataReader reader = command.ExecuteReader();
+        //}
+
+        /// <summary>
+        /// выполнение изменения строки бд
+        /// </summary>
+        /// <param name="Query"></param>
+        public void updateRowDB(string Query)
+        {
+            SqlCommand updateCommand = new SqlCommand(Query, sqlConnection);
+            updateCommand.ExecuteNonQuery();
+        }
+
     }   
 }

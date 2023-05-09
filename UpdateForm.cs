@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
+﻿/// Форма изменения элемента в БД по id
+/// Автор Будаев Г.Б. ВМК-21
+using System;
+using System.Data.SqlClient; /// для Sql команд
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -14,20 +10,30 @@ namespace WritingToolsDB
 {
     public partial class UpdateForm : Form
     {
+        /// Создаём объект SqlData для работы с бд
         SqlData MySql = new SqlData();
+        /// путь
         public string path;
+        /// имя бд
         public string name_db;
+        /// id изменяемого элемента
         public int id;
         public UpdateForm()
         {
             InitializeComponent();
+            /// создание в центре
             StartPosition = FormStartPosition.CenterParent;
         }
 
+        /// <summary>
+        /// действия при загрузке формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateForm_Load(object sender, EventArgs e)
         {
-            StartPosition = FormStartPosition.CenterParent;
             // toolStripStatusLabel1.Text = "";
+            /// для корректного ввода запятых/точек
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             textBox_manufacturer.Text = "";
@@ -46,9 +52,14 @@ namespace WritingToolsDB
             button_updateData.Enabled = false;
         }
 
+        /// <summary>
+        /// проверка ввода данных
+        /// </summary>
+        /// <returns></returns>
         private int CheckParams()
         {
             int count = 0; /// Счётчик ошибок
+            /// обнуление цветов
             textBox_manufacturer.BackColor = Color.White;
             textBox_name.BackColor = Color.White;
             textBox_color.BackColor = Color.White;
@@ -56,6 +67,7 @@ namespace WritingToolsDB
             numericUpDown_diameter.BackColor = Color.White;
             numericUpDown_price.BackColor = Color.White;
 
+            /// если строка пустая, увеличиваем count и изменяем цвет
             if (string.IsNullOrWhiteSpace(textBox_manufacturer.Text))
             {
                 textBox_manufacturer.BackColor = Color.LightPink;
@@ -78,52 +90,80 @@ namespace WritingToolsDB
             }
             else textBox_color.BackColor = Color.White;
 
-            float temp4;
-            if (float.TryParse(numericUpDown_diameter.Text, out temp4) == false)
-            {
-                numericUpDown_diameter.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_diameter.BackColor = Color.White;
+            /// если не вещественное число, увеличиваем count и изменяем цвет
+            //float temp4;
+            //if (float.TryParse(numericUpDown_diameter.Text, out temp4) == false)
+            //{
+            //    numericUpDown_diameter.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_diameter.BackColor = Color.White;
 
 
-            int temp5;
-            if (int.TryParse(numericUpDown_quantity.Text, out temp5) == false)
-            {
-                numericUpDown_quantity.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_quantity.BackColor = Color.White;
+            //int temp5;
+            //if (int.TryParse(numericUpDown_quantity.Text, out temp5) == false)
+            //{
+            //    numericUpDown_quantity.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_quantity.BackColor = Color.White;
 
 
-            float temp6;
-            if (float.TryParse(numericUpDown_price.Text, out temp6) == false)
-            {
-                numericUpDown_price.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_price.BackColor = Color.White;
+            //float temp6;
+            //if (float.TryParse(numericUpDown_price.Text, out temp6) == false)
+            //{
+            //    numericUpDown_price.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_price.BackColor = Color.White;
             return count;
         }
 
-        private void AddForm_FormClosed(object sender, FormClosedEventArgs e)
+        /// <summary>
+        /// закрытие формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
+        /// <summary>
+        /// замена запятой на точку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown_diameter.Text = numericUpDown_diameter.Text.Replace(',', '.');
         }
 
+
+        private void numericUpDown_price_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown_price.Text = numericUpDown_price.Text.Replace(',', '.');
+        }
+
+        /// <summary>
+        /// вывод данных по id, если существует
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_idChoosing_Click(object sender, EventArgs e)
         {
+            /// подключение к бд
             MySql.connectDB(path);
-
-            SqlCommand command = new SqlCommand($"SELECT * FROM " + name_db + $" WHERE id =  ('{numericUpDown_id.Value}')", MySql.sqlConnection);
+            /// формируем команду select и выполняем
+            string SelectQuery = $"SELECT * FROM " + name_db + $" WHERE id =  ('{numericUpDown_id.Value}')";     
+            SqlCommand command = new SqlCommand(SelectQuery, MySql.sqlConnection);
+            /// выполнение команды
             SqlDataReader reader = command.ExecuteReader();
+            /// если возвращены строки (1 строка, т.к. id - первичный ключ
             if (reader.HasRows)
             {
+                /// выводим данные на форму и делаем активными
+                numericUpDown_id.BackColor = Color.White;
                 id = Convert.ToInt32(numericUpDown_id.Value);
                 textBox_manufacturer.Enabled = true;
                 textBox_color.Enabled = true;
@@ -133,6 +173,7 @@ namespace WritingToolsDB
                 numericUpDown_price.Enabled = true;
                 button_updateData.Enabled = true;
 
+                /// выводим сами данные
                 while(reader.Read())
                 {
                     textBox_manufacturer.Text = reader.GetValue(1).ToString();
@@ -142,14 +183,24 @@ namespace WritingToolsDB
                     numericUpDown_quantity.Text = reader.GetValue(5).ToString();
                     numericUpDown_price.Text = reader.GetValue(6).ToString();
                 }
+                /// закрытие reader
                 reader.Close();
             }
+            /// меняем цвет, если такого id нет
+            else numericUpDown_id.BackColor = Color.LightPink;
         }
 
+        /// <summary>
+        /// кнопка изменить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_updateData_Click_1(object sender, EventArgs e)
         {
+            /// если данные введены корректно
             if (CheckParams() == 0)
             {
+                /// заносим данные в переменные
                 string manufacturer = textBox_manufacturer.Text;
 
                 string model_name = textBox_name.Text;
@@ -162,12 +213,13 @@ namespace WritingToolsDB
 
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
+                /// формируем команду изменения
                 string updateQuery = $"UPDATE " + name_db + $" SET Manufacturer = '{manufacturer}', ModelName = '{model_name}', InkColor = '{ink_color}', BallDiameter = '{ball_diameter}'," +
                     $"quantity = '{quantity}',price = '{price}' WHERE id = '{id}'";
 
-                SqlCommand updateCommand = new SqlCommand(updateQuery, MySql.sqlConnection);
-                updateCommand.ExecuteNonQuery();
+                MySql.updateRowDB(updateQuery);
 
+                /// обнуляем поля
                 textBox_manufacturer.Text = "";
                 textBox_color.Text = "";
                 textBox_name.Text = "";
@@ -177,6 +229,11 @@ namespace WritingToolsDB
             }
         }
 
+        /// <summary>
+        /// отправка изменений по Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void numericUpDown_id_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -184,6 +241,7 @@ namespace WritingToolsDB
                 button_idChoosing_Click(sender, e);
             }
         }
+
     }
 }
 

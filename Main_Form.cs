@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Data.SqlClient;
 
 namespace WritingToolsDB
 {
@@ -30,6 +31,34 @@ namespace WritingToolsDB
         }
 
         /// <summary>
+        /// загрузка формы -> подключение к БД
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Form_Load(object sender, EventArgs e)
+        {
+
+            /// строка подключения бд
+            /// LocalDB — упрощенная версия ядра СУБД SQL Server Express
+            /// MSSQLLocalDB предотвращает конфликты имен с именованными экземплярами LocalDB
+            /// AttachDbFilename - полный путь к подключаемой базе данных.
+            //
+
+            /// подключение к бд
+            MySql.connectDB(path);
+            /// загрузка данных
+            LoadData();
+
+            /// отключение возможности сортировки для первого и последнего стобцов
+            dataGridView.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+            dataGridView.Columns[7].SortMode = DataGridViewColumnSortMode.NotSortable;
+            /// первый столбец неактивный, т.к. заполняется сам
+            dataGridView.Columns[0].ReadOnly = true;
+            /// прокрутка вниз
+            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+        }
+
+        /// <summary>
         /// начальная загрузка данных в таблицу
         /// </summary>
         private void LoadData()
@@ -40,7 +69,7 @@ namespace WritingToolsDB
                 MySql.loadDB(name_db);
                 /// вывод данных из dataset в dataGridView
                 dataGridView.DataSource = MySql.dataset.Tables[name_db];
-               
+
                 /// выделение команд с столбце операций
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
                 {
@@ -79,36 +108,7 @@ namespace WritingToolsDB
             }
         }
 
-        /// <summary>
-        /// загрузка формы -> подключение к БД
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Main_Form_Load(object sender, EventArgs e)
-        {
-  
-            /// строка подключения бд
-            /// LocalDB — упрощенная версия ядра СУБД SQL Server Express
-            /// MSSQLLocalDB предотвращает конфликты имен с именованными экземплярами LocalDB
-            /// AttachDbFilename - полный путь к подключаемой базе данных.
-            //
-            
-            /// подключение к бд
-            MySql.connectDB(path);
 
-            //todo
-            // dataGridView.BackgroundColor = Color.Transparent;
-            /// загрузка данных
-            LoadData();
-
-            /// отключение возможности сортировки для первого и последнего стобцов
-            dataGridView.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dataGridView.Columns[7].SortMode = DataGridViewColumnSortMode.NotSortable;
-            dataGridView.Columns[0].ReadOnly = true;
-            dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
-
-
-        }
 
         /// <summary>
         /// открытие окна добавления строки
@@ -116,7 +116,7 @@ namespace WritingToolsDB
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
-        {       
+        {
             AddForm addform = new AddForm();
 
             addform.path = path;
@@ -271,6 +271,22 @@ namespace WritingToolsDB
             updateForm.ShowDialog();
             ReloadData();
             dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
+        }
+
+        private void button_clearSearch_Click(object sender, EventArgs e)
+        {
+            ReloadData();
+        }
+
+        private void textBox_search_TextChanged(object sender, EventArgs e)
+        {
+            //(dataGridView.DataSource as DataTable).DefaultView.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
+
+            DataView dv = (dataGridView.DataSource as DataTable).DefaultView;
+            dv.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
+            dataGridView.DataSource = dv;
+            ReloadData();
+
         }
     }
 }

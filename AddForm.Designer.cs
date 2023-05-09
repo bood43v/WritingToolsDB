@@ -39,14 +39,14 @@
             this.textBox_color = new System.Windows.Forms.TextBox();
             this.label_quantity = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button_addData = new System.Windows.Forms.Button();
-            this.numericUpDown_diameter = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_price = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_quantity = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_price = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_diameter = new System.Windows.Forms.NumericUpDown();
+            this.button_addData = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_quantity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).BeginInit();
             this.SuspendLayout();
             // 
             // label_manufacturer
@@ -172,36 +172,22 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 292);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
-            // button_addData
+            // numericUpDown_quantity
             // 
-            this.button_addData.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_addData.Location = new System.Drawing.Point(121, 332);
-            this.button_addData.Margin = new System.Windows.Forms.Padding(2);
-            this.button_addData.Name = "button_addData";
-            this.button_addData.Size = new System.Drawing.Size(144, 41);
-            this.button_addData.TabIndex = 13;
-            this.button_addData.Text = "Добавить";
-            this.button_addData.UseVisualStyleBackColor = true;
-            this.button_addData.Click += new System.EventHandler(this.button_addData_Click);
-            // 
-            // numericUpDown_diameter
-            // 
-            this.numericUpDown_diameter.DecimalPlaces = 2;
-            this.numericUpDown_diameter.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown_diameter.Location = new System.Drawing.Point(138, 150);
-            this.numericUpDown_diameter.Maximum = new decimal(new int[] {
-            3,
+            this.numericUpDown_quantity.Location = new System.Drawing.Point(138, 200);
+            this.numericUpDown_quantity.Maximum = new decimal(new int[] {
+            1000000,
             0,
             0,
             0});
-            this.numericUpDown_diameter.Name = "numericUpDown_diameter";
-            this.numericUpDown_diameter.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_diameter.TabIndex = 15;
-            this.numericUpDown_diameter.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.numericUpDown_quantity.Name = "numericUpDown_quantity";
+            this.numericUpDown_quantity.Size = new System.Drawing.Size(129, 27);
+            this.numericUpDown_quantity.TabIndex = 10;
+            this.numericUpDown_quantity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericUpDown_price
             // 
@@ -219,19 +205,49 @@
             0});
             this.numericUpDown_price.Name = "numericUpDown_price";
             this.numericUpDown_price.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_price.TabIndex = 16;
-            // 
-            // numericUpDown_quantity
-            // 
-            this.numericUpDown_quantity.Location = new System.Drawing.Point(138, 200);
-            this.numericUpDown_quantity.Maximum = new decimal(new int[] {
-            1000000,
+            this.numericUpDown_price.TabIndex = 11;
+            this.numericUpDown_price.Value = new decimal(new int[] {
+            100,
             0,
             0,
             0});
-            this.numericUpDown_quantity.Name = "numericUpDown_quantity";
-            this.numericUpDown_quantity.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_quantity.TabIndex = 17;
+            this.numericUpDown_price.ValueChanged += new System.EventHandler(this.numericUpDown_price_ValueChanged);
+            // 
+            // numericUpDown_diameter
+            // 
+            this.numericUpDown_diameter.DecimalPlaces = 2;
+            this.numericUpDown_diameter.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDown_diameter.Location = new System.Drawing.Point(138, 150);
+            this.numericUpDown_diameter.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown_diameter.Name = "numericUpDown_diameter";
+            this.numericUpDown_diameter.Size = new System.Drawing.Size(129, 27);
+            this.numericUpDown_diameter.TabIndex = 9;
+            this.numericUpDown_diameter.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            65536});
+            this.numericUpDown_diameter.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // button_addData
+            // 
+            this.button_addData.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_addData.Location = new System.Drawing.Point(121, 332);
+            this.button_addData.Margin = new System.Windows.Forms.Padding(2);
+            this.button_addData.Name = "button_addData";
+            this.button_addData.Size = new System.Drawing.Size(144, 41);
+            this.button_addData.TabIndex = 12;
+            this.button_addData.Text = "Добавить";
+            this.button_addData.UseVisualStyleBackColor = true;
+            this.button_addData.Click += new System.EventHandler(this.button_addData_Click);
             // 
             // AddForm
             // 
@@ -242,7 +258,9 @@
             this.Controls.Add(this.button_addData);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(410, 430);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(410, 430);
             this.Name = "AddForm";
             this.Text = "Добавить ручку";
@@ -250,9 +268,9 @@
             this.Load += new System.EventHandler(this.AddForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_quantity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diameter)).EndInit();
             this.ResumeLayout(false);
 
         }

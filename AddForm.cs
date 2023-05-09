@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
+﻿/// Форма добавления нового элемента в БД
+/// Автор Будаев Г.Б. ВМК-21
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -14,22 +9,56 @@ namespace WritingToolsDB
 {
     public partial class AddForm : Form
     {
+        /// Создаём объект SqlData для работы с бд
         SqlData MySql = new SqlData();
+        /// путь
         public string path;
-        public string name_db;
+        /// имя бд
+        public string name_db; 
         public AddForm()
         {
             InitializeComponent();
+            /// создание в центре
             StartPosition = FormStartPosition.CenterParent;
         }
 
+
+        private void AddForm_Load(object sender, EventArgs e)
+        {
+            /// для корректного ввода запятых/точек
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
+            //textBox_manufacturer.Text = "Brauberg";
+            //textBox_name.Text = "Lite";
+            //textBox_color.Text = "синий";
+            //numericUpDown_quantity.Value = 1;
+            //numericUpDown_diameter.Text = "0.7";
+            //numericUpDown_price.Text = "50";
+
+            //textBox_manufacturer.ForeColor = Color.Gray;
+            //textBox_name.ForeColor = Color.Gray;
+            //textBox_color.ForeColor = Color.Gray;
+            //numericUpDown_quantity.ForeColor = Color.Gray;
+            //numericUpDown_diameter.ForeColor = Color.Gray;
+            //numericUpDown_price.ForeColor = Color.Gray;
+        }
+
+
+        /// <summary>
+        /// добавить данные в бд
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_addData_Click(object sender, EventArgs e)
         {
-            if (CheckParams() == 0)
+            /// если данные введены корректно
+            if (CheckParams() == 0) 
             {
-                MySql.connectDB(path);
+                /// подключение к бд
+                MySql.connectDB(path); 
 
-                string manufacturer = textBox_manufacturer.Text;
+                /// заносим данные в переменные
+                string manufacturer = textBox_manufacturer.Text; 
 
                 string model_name = textBox_name.Text;
 
@@ -41,16 +70,13 @@ namespace WritingToolsDB
 
                 double price = (double)Convert.ToDouble(numericUpDown_price.Text);
 
+                /// формируем команду вставки
                 string AddQuery = $"insert into " + name_db + $" (manufacturer, modelname, inkcolor, balldiameter, quantity, price) values ('{manufacturer}', '{model_name}','{ink_color}','{ball_diameter   }','{quantity}','{price}')";
 
-                var sqlDataAdapter = new SqlDataAdapter(AddQuery, MySql.sqlConnection);
+                /// вызов метода вставки в бд
+                MySql.insertDB(name_db, AddQuery);
 
-                /// для следующего заполнения данными
-                var dataset = new DataSet();
-
-                /// заполнение dataset данными из бд nameDB
-                sqlDataAdapter.Fill(dataset, name_db);
-
+                /// обнуляем поля для ввода следующий значений
                 textBox_manufacturer.Text = "";
                 textBox_color.Text = "";
                 textBox_name.Text = "";
@@ -63,9 +89,14 @@ namespace WritingToolsDB
             }
         }
 
+        /// <summary>
+        /// проверка ввода данных
+        /// </summary>
+        /// <returns></returns>
         private int CheckParams()
         {
             int count = 0; /// Счётчик ошибок
+            /// обнуление цветов
             textBox_manufacturer.BackColor = Color.White;
             textBox_name.BackColor = Color.White;
             textBox_color.BackColor = Color.White;
@@ -73,6 +104,7 @@ namespace WritingToolsDB
             numericUpDown_diameter.BackColor = Color.White;
             numericUpDown_price.BackColor = Color.White;
 
+            /// если строка пустая, увеличиваем count и изменяем цвет
             if (string.IsNullOrWhiteSpace(textBox_manufacturer.Text))
             {
                 textBox_manufacturer.BackColor = Color.LightPink;
@@ -95,54 +127,67 @@ namespace WritingToolsDB
             }
             else textBox_color.BackColor = Color.White;
 
-            float temp4; 
-            if (float.TryParse(numericUpDown_diameter.Text, out temp4) == false) 
-            {
-                numericUpDown_diameter.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_diameter.BackColor = Color.White;
+            /// если не вещественное число, увеличиваем count и изменяем цвет
+            //float temp4; 
+            //if (float.TryParse(numericUpDown_diameter.Text, out temp4) == false) 
+            //{
+            //    numericUpDown_diameter.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_diameter.BackColor = Color.White;
 
 
-            int temp5;
-            if (int.TryParse(numericUpDown_quantity.Text, out temp5) == false)
-            {
-                numericUpDown_quantity.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_quantity.BackColor = Color.White;
+            //int temp5;
+            //if (int.TryParse(numericUpDown_quantity.Text, out temp5) == false)
+            //{
+            //    numericUpDown_quantity.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_quantity.BackColor = Color.White;
 
 
-            float temp6;
-            if (float.TryParse(numericUpDown_price.Text, out temp6) == false)
-            {
-                numericUpDown_price.BackColor = Color.LightPink;
-                count++;
-            }
-            else numericUpDown_price.BackColor = Color.White;
+            //float temp6;
+            //if (float.TryParse(numericUpDown_price.Text, out temp6) == false)
+            //{
+            //    numericUpDown_price.BackColor = Color.LightPink;
+            //    count++;
+            //}
+            //else numericUpDown_price.BackColor = Color.White;
             return count;
         }
 
+        /// <summary>
+        /// закрытие формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
+        /// <summary>
+        /// замена запятой на точку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown_diameter.Text = numericUpDown_diameter.Text.Replace(',', '.');
         }
 
-        private void AddForm_Load(object sender, EventArgs e)
+        private void numericUpDown_price_ValueChanged(object sender, EventArgs e)
         {
-
-            // toolStripStatusLabel1.Text = "";
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
-            numericUpDown_quantity.Text = "";
-            numericUpDown_diameter.Text = "";
-            numericUpDown_price.Text = "";
+            numericUpDown_price.Text = numericUpDown_price.Text.Replace(',', '.');
         }
+
+        /// <summary>
+        /// действия при загрузке формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+
     }
 }
 

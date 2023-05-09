@@ -60,7 +60,7 @@
             this.button_updateData.Margin = new System.Windows.Forms.Padding(2);
             this.button_updateData.Name = "button_updateData";
             this.button_updateData.Size = new System.Drawing.Size(144, 41);
-            this.button_updateData.TabIndex = 15;
+            this.button_updateData.TabIndex = 12;
             this.button_updateData.Text = "Изменить";
             this.button_updateData.UseVisualStyleBackColor = true;
             this.button_updateData.Click += new System.EventHandler(this.button_updateData_Click_1);
@@ -108,7 +108,7 @@
             0});
             this.numericUpDown_quantity.Name = "numericUpDown_quantity";
             this.numericUpDown_quantity.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_quantity.TabIndex = 17;
+            this.numericUpDown_quantity.TabIndex = 10;
             // 
             // numericUpDown_price
             // 
@@ -126,7 +126,8 @@
             0});
             this.numericUpDown_price.Name = "numericUpDown_price";
             this.numericUpDown_price.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_price.TabIndex = 16;
+            this.numericUpDown_price.TabIndex = 11;
+            this.numericUpDown_price.ValueChanged += new System.EventHandler(this.numericUpDown_price_ValueChanged);
             // 
             // numericUpDown_diameter
             // 
@@ -144,7 +145,7 @@
             0});
             this.numericUpDown_diameter.Name = "numericUpDown_diameter";
             this.numericUpDown_diameter.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_diameter.TabIndex = 15;
+            this.numericUpDown_diameter.TabIndex = 9;
             // 
             // textBox_manufacturer
             // 
@@ -259,7 +260,12 @@
             0});
             this.numericUpDown_id.Name = "numericUpDown_id";
             this.numericUpDown_id.Size = new System.Drawing.Size(129, 27);
-            this.numericUpDown_id.TabIndex = 17;
+            this.numericUpDown_id.TabIndex = 13;
+            this.numericUpDown_id.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown_id.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDown_id_KeyDown);
             // 
             // button_idChoosing
@@ -269,7 +275,7 @@
             this.button_idChoosing.Margin = new System.Windows.Forms.Padding(2);
             this.button_idChoosing.Name = "button_idChoosing";
             this.button_idChoosing.Size = new System.Drawing.Size(144, 41);
-            this.button_idChoosing.TabIndex = 18;
+            this.button_idChoosing.TabIndex = 14;
             this.button_idChoosing.Text = "Найти";
             this.button_idChoosing.UseVisualStyleBackColor = true;
             this.button_idChoosing.Click += new System.EventHandler(this.button_idChoosing_Click);
@@ -285,8 +291,12 @@
             this.Controls.Add(this.label_id);
             this.Controls.Add(this.button_updateData);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(410, 580);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(410, 580);
             this.Name = "UpdateForm";
-            this.Text = "Update";
+            this.Text = "Изменить";
             this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

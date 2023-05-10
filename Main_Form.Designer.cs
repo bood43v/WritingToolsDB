@@ -46,8 +46,9 @@
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оРазработчикеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.инструкцияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -76,6 +77,7 @@
             this.toolStripButtonAdd.Name = "toolStripButtonAdd";
             this.toolStripButtonAdd.Size = new System.Drawing.Size(63, 22);
             this.toolStripButtonAdd.Text = "Добавить";
+            this.toolStripButtonAdd.ToolTipText = "Добавить элемент в базу данных";
             this.toolStripButtonAdd.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
             // 
             // toolStripButtonUpdate
@@ -86,6 +88,7 @@
             this.toolStripButtonUpdate.Name = "toolStripButtonUpdate";
             this.toolStripButtonUpdate.Size = new System.Drawing.Size(65, 22);
             this.toolStripButtonUpdate.Text = "Изменить";
+            this.toolStripButtonUpdate.ToolTipText = "Изменить элемент базы данных";
             this.toolStripButtonUpdate.Click += new System.EventHandler(this.toolStripButtonUpdate_Click);
             // 
             // toolStripSeparator1
@@ -137,7 +140,6 @@
             this.domainUpDown.Items.Add("по производителю");
             this.domainUpDown.Items.Add("по названию модели");
             this.domainUpDown.Items.Add("по цвету");
-            this.domainUpDown.Items.Add("по диаметру шарика");
             this.domainUpDown.Location = new System.Drawing.Point(204, 25);
             this.domainUpDown.Name = "domainUpDown";
             this.domainUpDown.Size = new System.Drawing.Size(171, 23);
@@ -151,6 +153,7 @@
             this.textBox_search.Size = new System.Drawing.Size(100, 23);
             this.textBox_search.TabIndex = 4;
             this.textBox_search.TextChanged += new System.EventHandler(this.textBox_search_TextChanged);
+            this.textBox_search.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_search_KeyDown);
             // 
             // button_find
             // 
@@ -160,6 +163,7 @@
             this.button_find.TabIndex = 5;
             this.button_find.Text = "Найти";
             this.button_find.UseVisualStyleBackColor = true;
+            this.button_find.Click += new System.EventHandler(this.button_find_Click);
             // 
             // button_clearSearch
             // 
@@ -194,6 +198,7 @@
             // OpenToolStripMenuItem
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            this.OpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.OpenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.OpenToolStripMenuItem.Text = "Открыть";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
@@ -201,6 +206,7 @@
             // CreateToolStripMenuItem
             // 
             this.CreateToolStripMenuItem.Name = "CreateToolStripMenuItem";
+            this.CreateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.CreateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.CreateToolStripMenuItem.Text = "Создать";
             this.CreateToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
@@ -208,16 +214,25 @@
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оРазработчикеToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.инструкцияToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
-            // оРазработчикеToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.оРазработчикеToolStripMenuItem.Name = "оРазработчикеToolStripMenuItem";
-            this.оРазработчикеToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.оРазработчикеToolStripMenuItem.Text = "О разработчике";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "О разработчике";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // инструкцияToolStripMenuItem
+            // 
+            this.инструкцияToolStripMenuItem.Name = "инструкцияToolStripMenuItem";
+            this.инструкцияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.инструкцияToolStripMenuItem.Text = "Инструкция";
+            this.инструкцияToolStripMenuItem.Click += new System.EventHandler(this.инструкцияToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -272,9 +287,10 @@
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оРазработчикеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem CreateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem инструкцияToolStripMenuItem;
     }
 }
 

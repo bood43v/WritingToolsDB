@@ -34,7 +34,7 @@ namespace WritingToolsDB
         string path;
 
         /// Для проверки вводится ли строка
-        private bool newRowAdding = false;
+       // private bool newRowAdding = false;
 
         public static Main_Form SelfRef { get; set; }
         public Main_Form()
@@ -289,7 +289,6 @@ namespace WritingToolsDB
                 ReloadData();
                 dataGridView.FirstDisplayedScrollingRowIndex = dataGridView.RowCount - 1;
             }
-
         }
 
         /// <summary>
@@ -299,23 +298,13 @@ namespace WritingToolsDB
         /// <param name="e"></param>
         private void button_clearSearch_Click(object sender, EventArgs e)
         {
-            ReloadData();
-        }
-
-        /// <summary>
-        /// поиск
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBox_search_TextChanged(object sender, EventArgs e)
-        {
-            //(dataGridView.DataSource as DataTable).DefaultView.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
-
-            DataView dv = (dataGridView.DataSource as DataTable).DefaultView;
-            dv.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
-            dataGridView.DataSource = dv;
-            ReloadData();
-
+            if(DB_loaded)
+            {
+                DataView dv = (dataGridView.DataSource as DataTable).DefaultView;
+                textBox_search.Text = "";
+                dv.RowFilter = $"Manufacturer LIKE '%{textBox_search.Text}%'";
+                ReloadData();
+            }     
         }
 
         /// <summary>
@@ -347,6 +336,7 @@ namespace WritingToolsDB
                 
                 /// полный путь к файлу
                 currPath = openFileDialog1.FileName;
+               
                 /// загрузка бд
                 Main_Form_loadDB();
                 DB_loaded = true;
@@ -358,7 +348,98 @@ namespace WritingToolsDB
 
         private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CreateDB createForm = new CreateDB();
+            createForm.ShowDialog();
+           // ReloadData();
+        }
 
+        /// <summary>
+        /// фильтр-поиск 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_find_Click(object sender, EventArgs e)
+        {
+            //(dataGridView.DataSource as DataTable).DefaultView.RowFilter = $"Manufacturer LIKE '%{domainUpDown.Text}%'";
+            /// если бд загружена
+            if(DB_loaded == true)
+            {
+                DataView dv = (dataGridView.DataSource as DataTable).DefaultView;
+                if(domainUpDown.Text == "по производителю")
+                {
+                    dv.RowFilter = $"Manufacturer LIKE '%{textBox_search.Text}%'";
+                }
+                if (domainUpDown.Text == "по названию модели")
+                {
+                    dv.RowFilter = $"ModelName LIKE '%{textBox_search.Text}%'";
+                }
+
+                if (domainUpDown.Text == "по цвету")
+                {
+                    dv.RowFilter = $"InkColor LIKE '%{textBox_search.Text}%'";
+                }
+
+                dataGridView.DataSource = dv;
+                ReloadData();
+            }
+        }
+
+        /// <summary>
+        /// о разработчике
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Автор: Будаев Г.Б. ВМК-21", "О разработчике", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// поиск по Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_find_Click(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// фильтр-поиск 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox_search_TextChanged(object sender, EventArgs e)
+        {
+            if (DB_loaded == true)
+            {
+                DataView dv = (dataGridView.DataSource as DataTable).DefaultView;
+                if (domainUpDown.Text == "по производителю")
+                {
+                    dv.RowFilter = $"Manufacturer LIKE '%{textBox_search.Text}%'";
+                }
+                if (domainUpDown.Text == "по названию модели")
+                {
+                    dv.RowFilter = $"ModelName LIKE '%{textBox_search.Text}%'";
+                }
+
+                if (domainUpDown.Text == "по цвету")
+                {
+                    dv.RowFilter = $"InkColor LIKE '%{textBox_search.Text}%'";
+                }
+
+                dataGridView.DataSource = dv;
+                ReloadData();
+            }
+        }
+
+        private void инструкцияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Instruction instruction = new Instruction();
+            instruction.ShowDialog();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace WritingToolsDB
         public void loadDB(string nameTable)
         {
             /// загрузка данных в sqlDataAdapter c добавлением столбца
-            sqlDataAdapter = new SqlDataAdapter("SELECT *, 'Delete' AS [Operation] FROM " + nameTable, sqlConnection);
+            sqlDataAdapter = new SqlDataAdapter("SELECT *, 'Delete' AS [Delete] FROM " + nameTable, sqlConnection);
             /// создание объекта для реализации команд
             sqlBuilder = new SqlCommandBuilder(sqlDataAdapter);
 

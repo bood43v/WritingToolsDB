@@ -80,9 +80,9 @@ namespace WritingToolsDB
                 textBox_manufacturer.Text = "";
                 textBox_color.Text = "";
                 textBox_name.Text = "";
-                numericUpDown_diameter.Text = "";
-                numericUpDown_quantity.Text = "";
-                numericUpDown_price.Text = "";
+                numericUpDown_diameter.Text = "0.70";
+                numericUpDown_quantity.Text = "1";
+                numericUpDown_price.Text = "100";
 
 
                 //toolStripStatusLabel1.Text = "";

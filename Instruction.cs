@@ -18,5 +18,10 @@ namespace WritingToolsDB
             /// создание в центре
             StartPosition = FormStartPosition.CenterParent;
         }
+
+        private void button_ok_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

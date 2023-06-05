@@ -10,8 +10,8 @@ namespace WritingToolsDB
 {
     public partial class UpdateForm : Form
     {
-        /// Создаём объект SqlData для работы с бд
-        SqlData MySql = new SqlData();
+        /// объект SqlData для работы с бд
+        public SqlData MySql;
         /// путь
         public string path;
         /// имя бд

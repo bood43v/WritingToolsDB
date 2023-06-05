@@ -43,7 +43,7 @@ namespace WritingToolsDB
         /// <param name="e"></param>
         private void button_create_Click(object sender, EventArgs e)
         {
-            fileName = textBox_name.Text;
+            //fileName = textBox_name.Text;
 
             string path = textBox_folder.Text;
 
@@ -54,14 +54,15 @@ namespace WritingToolsDB
 
             String str;
 
-            SqlConnection myConn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
+            SqlConnection myConn = new SqlConnection(path);
+            fileName = "MyDB";
 
             str = "CREATE DATABASE " + fileName + " ON PRIMARY " +
                 "(NAME = " + fileName + ", " +
-                "FILENAME = '"+ currPath + "\\" + fileName + ".mdf', " +
+                //"FILENAME = '"+ currPath + "\\" + fileName + ".mdf', " +
                 "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%) " +
-                "LOG ON (NAME = '" + fileName + "_log', " +
-                "FILENAME = '"+ currPath + "\\" + fileName +".ldf', " +
+                //"LOG ON (NAME = '" + fileName + "_log', " +
+                //"FILENAME = '"+ currPath + "\\" + fileName +".ldf', " +
                 "SIZE = 1MB, " +
                 "MAXSIZE = 5MB, " +
                 "FILEGROWTH = 10%)";

@@ -9,7 +9,7 @@ namespace WritingToolsDB
     /// <summary>
     /// класс работы с базой данных
     /// </summary>
-    internal class SqlData
+    public class SqlData
     {
         /// <summary>
         /// подключение к базе данных SQL Server
@@ -48,6 +48,7 @@ namespace WritingToolsDB
         /// <param name="nameTable"></param>
         public void loadDB(string nameTable)
         {
+
             /// загрузка данных в sqlDataAdapter c добавлением столбца
             sqlDataAdapter = new SqlDataAdapter("SELECT *, 'Delete' AS [Delete] FROM " + nameTable, sqlConnection);
             /// создание объекта для реализации команд

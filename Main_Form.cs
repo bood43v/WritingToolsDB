@@ -98,6 +98,8 @@ namespace WritingToolsDB
                 /// загрузка данных в dataset
                 MySql.loadDB(name_table);
                 /// вывод данных из dataset в dataGridView
+
+                /// как работает datasourse
                 dataGridView.DataSource = MySql.dataset.Tables[name_table];
 
                 /// выделение команд с столбце операций
@@ -152,6 +154,7 @@ namespace WritingToolsDB
                 AddForm addform = new AddForm();
 
                 addform.path = path;
+                addform.MySql = MySql;
                 addform.name_table = name_table;
                 addform.ShowDialog();
                 ReloadData();
@@ -283,6 +286,7 @@ namespace WritingToolsDB
             if (DB_loaded)
             {
                 UpdateForm updateForm = new UpdateForm();
+                updateForm.MySql = MySql;
                 updateForm.path = path;
                 updateForm.name_table = name_table;
                 updateForm.ShowDialog();
